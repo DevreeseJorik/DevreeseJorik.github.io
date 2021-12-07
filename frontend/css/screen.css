@@ -619,7 +619,32 @@ a:hover {
 */
 
 
-@media (max-width: 992px) {
+.direction {
+  width:12px;
+}
+
+.direction_left {
+  transform: rotate(180deg);
+  margin-right:10px;
+}
+
+.direction_right {
+  margin-left:10px;
+}
+
+.direction_up {
+  padding-top:20px;
+  transform: rotate(270deg);
+  display:block;
+  margin:0 auto;
+}
+.direction_down {
+  transform: rotate(90deg);
+  display:block;
+  margin:0 auto;
+}
+
+@media (max-width: 2000px) {
   .map_wrapper { 
     padding-top:10px;
     padding-bottom:10px;
@@ -638,34 +663,9 @@ a:hover {
     width: 11px;
     height: 11px;
   }
-
-  .direction {
-    width:10px;
-  }
-
-  .direction_left {
-    transform: rotate(180deg);
-    margin-right:10px;
-  }
-
-  .direction_right {
-    margin-left:10px;
-  }
-
-  .direction_up {
-    padding-top:20px;
-    transform: rotate(270deg);
-    display:block;
-    margin:0 auto;
-  }
-  .direction_down {
-    transform: rotate(90deg);
-    display:block;
-    margin:0 auto;
-  }
 }
 
-@media (min-width: 992px) {
+/* @media (min-width: 992px) {
   .game_map {
     height:800px;
     width: 800px;
@@ -688,13 +688,15 @@ a:hover {
     width: 21px;
     height:21px;  
   }
+} */
+
+.opac50 {
+  opacity: 50%;
 }
 
-/*
-  Component: encounter table
-  ---
-  Customise encounter table
-*/
+.arrow_disable {
+  opacity:10%;
+}
 
 .encounter_header {
   margin-top:10px;
@@ -736,10 +738,6 @@ table tbody:last-child td:first-child{
 
 table tbody:last-child td:last-child{
   border-bottom-right-radius: 15px;
-}
-
-.opac50 {
-  opacity: 50%;
 }
 
 /*------------------------------------*\

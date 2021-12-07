@@ -290,6 +290,7 @@ let areaAPInames = {
   494:"canalave-city-area",
   498:"sinnoh-route-204-south-towards-jubilife-city",
   502:"sinnoh-route-207-area",
+  503:"sinnoh-route-207-area",
   523:"canalave-city-area",
   524:"sinnoh-route-218-area",
   525:"sinnoh-route-218-area",
@@ -303,6 +304,7 @@ let areaAPInames = {
   556:"jubilife-city-area",
   560:"oreburgh-city-area",
   585:"sinnoh-route-202-area",
+  610:"mystery-zone-area",
   611:"verity-lakefront-area",
   612:"sinnoh-route-201-area",
   613:"sinnoh-route-201-area",
@@ -325,7 +327,7 @@ let convertMethod = {
   "gift":"gift"
 }
 
-const blacklist = ["jubilife-city-area","sandgem-town-area","verity-lakefront-area",,"floaroma-town-area","oreburgh-city-area"]; // list of areas not implemented in API :(
+const blacklist = ["mystery-zone-area","jubilife-city-area","sandgem-town-area","verity-lakefront-area",,"floaroma-town-area","oreburgh-city-area"]; // list of areas not implemented in API :(
 const invalidMaps = ["void","wall chunk"];
 let cachedAreaEncounters = {};
 let EncounterList;
@@ -353,11 +355,22 @@ let EncounterTableInit = `<table class="encounter_table">
                             <th><div>Rate</div></th>
                           </tr></thead>`;
 
+
 const isMapValid = function(tempMap) {
   if (tempMap > 700) {return false};
   if (tempMap < 0) {return false};
   if (invalidMaps.indexOf(map_layout[`Index${tempMap}`])!=-1) {return false}; // if map is not pure walls/void
   return true;
+}
+
+const disableInvalidDirections = function() {
+  let dirBtns = document.querySelectorAll(".direction");
+  for (let dirBtn of dirBtns) {
+    dirBtn.classList.remove("arrow_disable"); // reset opacity
+    if (!isDirectionValid(dirBtn.getAttribute("value"))[0]) {
+      dirBtn.classList.add("arrow_disable");
+    }
+  }
 }
 
 const isDirectionValid = function(direction) {
@@ -373,10 +386,10 @@ const move = function(direction) {
   let data = isDirectionValid(direction);
   if (data[0]) {
     selectedMap = data[1];
-    //console.log(selectedMap); //debug print the maps 
-    //console.log(areaAPInames[selectedMap]);
+    console.log(selectedMap); //debug print the maps 
+    console.log(areaAPInames[selectedMap]);
     createMap();
-    return
+    return;
   }
 }
 
@@ -416,6 +429,14 @@ const listenTiles = function() {
         //console.log(`showing ${encounterType}encounters: ${tileSwitches[encounterType]}`); 
         updateTileOpacity();
         });
+
+        // encTile.addEventListener('mouseenter',function(){
+        //   console.log(`hovering ${encTile}`);
+        //   });
+        // encTile.addEventListener('mouseleave',function(){
+        //     console.log(`stopped hovering ${encTile}`);
+        // });
+
       }
     }
   }
@@ -473,7 +494,8 @@ const createMap = function () {
     };
     map.innerHTML += `<div class="map_row" id="${0}">${links}</div>`;
   };
-  listenTiles()
+  listenTiles();
+  disableInvalidDirections();
 };
 
 const showEncounter = function(method) {
@@ -508,9 +530,8 @@ const showEncounters = function(pokemon_encounters) {
   };
   EncounterList.innerHTML += EncounterTable;
   if (EncounterTable == EncounterTableInit) {
-    console.log("fuck")
     EncounterList.innerHTML = `<div style="text-align:center">There are encounters here! <br>
-                               Click on a grass,surf or cave tile to show them.</div>`
+                               Click on a grass or water tile to show them.</div>`
   }
 };
 
@@ -534,7 +555,7 @@ const updateEncounters = async function() {
         };
     };
     //console.log(`Missing encounter data from API for ${area}`);
-    EncounterList.innerHTML ="No encounters are present in this map"
+    EncounterList.innerHTML ="No encounters are present in this map."
   } catch (ex) {
     console.log(ex);
   };
