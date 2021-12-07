@@ -2,17 +2,10 @@
 // global variable declaration
 
 const lanIP = `${window.location.hostname}:5000`;
-const baseUrl = "https://pokeapi.co/api/v2/location-area/"
+const baseUrl = "https://pokeapi.co/api/v2/location-area/";
 let serverEndPoint = baseUrl;
 const customHeaders = new Headers()
 customHeaders.append('Accept', 'application/json');
-
-const blacklist = ["jubilife-city-area"]; // list of areas not implemented in API :(
-const invalidMaps = ["void","wall chunk"];
-let map_layout;
-let game_id = 0; // 0 = Diamond, 1 = Pearl, 2 = Platinum
-let area = "twinleaf-town-area";
-let selectedMap = 415;
 
 let tileColors = {
   0:'#3E3E56',        
@@ -273,19 +266,95 @@ let tileColors = {
   255:'#3E3E56',
   }
 
-const move = function(direction) {
-  let tempMap = selectedMap;
-  if (direction == "up") { selectedMap -= 29; }
-  if (direction == "down") { selectedMap += 29; }
-  if (direction == "left") {selectedMap -= 1;}
-  if (direction == "right") {selectedMap += 1;}
-  if (invalidMaps.indexOf(map_layout[`Index${selectedMap}`])==-1) { // if map is not pure walls/void
-    console.log(invalidMaps.indexOf(map_layout[`Index${selectedMap}`]))
-    createMap()
-    return
-  } // undo the selection of the invalid map otherwise
-  selectedMap = tempMap;
+let areaAPInames = {
+  326:"eterna-forest-area",
+  327:"sinnoh-route-205-east-towards-eterna-city",
+  328:"eterna-city-area",
+  329:"eterna-city-area",
+  330:"sinnoh-route-211-west-towards-eterna-city",
+  354:"eterna-forest-area",
+  355:"eterna-forest-area",
+  357:"eterna-city-area",
+  382:"fuego-ironworks-area",
+  383:"sinnoh-route-205-south-towards-floaroma-town",
+  386:"sinnoh-route-206-area",
+  411:"floaroma-town-area",
+  412:"sinnoh-route-205-south-towards-floaroma-town",
+  415:"sinnoh-route-206-area",
+  440:"floaroma-town-area",
+  441:"sinnoh-route-205-south-towards-floaroma-town",
+  442:"valley-windworks-area",
+  444:"sinnoh-route-206-area",
+  469:"sinnoh-route-204-north-towards-floaroma-town",
+  473:"sinnoh-route-206-area",
+  498:"sinnoh-route-204-south-towards-jubilife-city",
+  502:"sinnoh-route-207-area",
+  523:"canalave-city-area",
+  524:"sinnoh-route-218-area",
+  525:"sinnoh-route-218-area",
+  527:"jubilife-city-area",
+  526:"jubilife-city-area",
+  528:"sinnoh-route-203-area",
+  529:"sinnoh-route-203-area",
+  530:"oreburgh-city-area",
+  531:"oreburgh-city-area",
+  555:"jubilife-city-area",
+  556:"jubilife-city-area",
+  560:"oreburgh-city-area",
+  585:"sinnoh-route-202-area",
+  611:"verity-lakefront-area",
+  612:"sinnoh-route-201-area",
+  613:"sinnoh-route-201-area",
+  614:"sandgem-town-area",
+  641:"twinleaf-town-area",
+  643:"sinnoh-route-219-area",
+  672:"sinnoh-route-219-area", //actually 220, but same data, api doesn't provide route 220
+  673:"sinnoh-route-219-area",
+  674:"sinnoh-route-221-area",
+  675:"sinnoh-route-221-area",
+  676:"sinnoh-route-221-area",
+}
 
+const blacklist = ["jubilife-city-area","sandgem-town-area","verity-lakefront-area","eterna-city-area","floaroma-town-area"]; // list of areas not implemented in API :(
+const invalidMaps = ["void","wall chunk"];
+let cachedAreaEncounters = {};
+let encounterTypes = {
+  "grass":[2,3],
+  "water":[16,20,21,22,23,25]}
+let opacityTable = {  
+  "grass":0,
+  "water":0}
+
+let map_layout;
+let game_id = 0; // 0 = Diamond, 1 = Pearl, 2 = Platinum
+let selectedMap = 672;//641;
+let area = areaAPInames[selectedMap];
+
+const isMapValid = function(tempMap) {
+  if (tempMap > 700) {return false};
+  if (tempMap < 0) {return false};
+  if (invalidMaps.indexOf(map_layout[`Index${tempMap}`])!=-1) {return false}; // if map is not pure walls/void
+  return true;
+}
+
+const isDirectionValid = function(direction) {
+  let tempMap = selectedMap;
+  if (direction == "up") { tempMap -= 29; }
+  if (direction == "down") { tempMap += 29; }
+  if (direction == "left") {tempMap -= 1;}
+  if (direction == "right") {tempMap += 1;}
+  return [isMapValid(tempMap),tempMap];
+}
+
+const move = function(direction) {
+  let data = isDirectionValid(direction);
+  if (data[0]) {
+    selectedMap = data[1];
+    console.log(selectedMap);
+    console.log(areaAPInames[selectedMap]);
+    createMap();
+    return
+  }
 }
 
 const filename = function(url) { 
@@ -311,19 +380,76 @@ const listenDirections = function() {
   }
 }
 
+const listenTiles = function() {
+  let encTiles;
+  for (let encounterType in encounterTypes) {
+    // console.log(encounterType);
+    for (let subTile of encounterTypes[encounterType]) {
+        encTiles = document.querySelectorAll(`.tile_${subTile}`);
+      for (let encTile of encTiles) {
+        encTile.classList.add(`${encounterType}`)
+        encTile.addEventListener('click',function(){
+        opacityTable[encounterType] = !opacityTable[encounterType];
+        //console.log(`showing ${encounterType}encounters: ${opacityTable[encounterType]}`); 
+        updateTileOpacity();
+        });
+      }
+    }
+  }
+  updateTileOpacity() // run once to update all opacities to correct value upon loading new map
+}
+
 // show data
+const updateTileOpacity = function() {
+  // console.log("changing tile opacities!")
+  let Tiles = document.querySelectorAll(".tile")
+  let opacityChanges = false;
+  let encTiles;
+
+  for (let encType in opacityTable) {
+    if (opacityTable[encType]) {
+      opacityChanges = true;
+    }
+  }
+
+  // if opacity changes should occur
+  if (opacityChanges) {
+    for (let tile of Tiles) {
+        tile.classList.add("opac50");
+    };
+    for (let encType in opacityTable) {
+      if (opacityTable[encType]) {
+        for (let subTile of encounterTypes[encType]) {
+          encTiles = document.querySelectorAll(`.tile_${subTile}`);
+          for (let encTile of encTiles) {
+            encTile.classList.remove("opac50");
+          }
+        }
+      }
+    }
+    return;
+  };
+
+  // else, remove all opacity changes
+  for (let tile of Tiles) {
+    tile.classList.remove("opac50");
+  };
+  updateEncounters()
+}
 const createMap = function () {
   let map = document.querySelector(".game_map");
   map.innerHTML = "";
+
   for (let row of map_layout[`Index${selectedMap}`])
     {
     let links ="";
     for (let value of row) {
-      let link_data = `<div class="${value}" style="background-color:${getTileColor(value)}"><wbr></div>`;
+      let link_data = `<div class="tile_${value} tile" style="background-color:${getTileColor(value)}"><wbr></div>`;
       links += link_data;
-    }
+    };
     map.innerHTML += `<div class="map_row" id="${0}">${links}</div>`;
-  }
+  };
+  listenTiles()
 };
 
 const showEncounters = function (pokemon_encounters) {
@@ -347,7 +473,7 @@ const showEncounters = function (pokemon_encounters) {
     let detail = encounterDetails[0];
     EncounterTable += `<tbody><tr>
                         <td><div><img src="https://img.pokemondb.net/sprites/diamond-pearl/normal/${pokemon.name}.png" alt="picture of pokemon${pokemon.name}"><p>${pokemon.name}</p></div></td>
-                        <td><div>${detail.min_level} to ${detail.max_level}</div></td>
+                        <td><div>${detail.min_level} - ${detail.max_level}</div></td>
                         <td><div>${detail.method.name}</div></td>
                         <td><div>${Math.min(versionDetails[game_id].max_chance,100)}%</div></td>
                       </tr></tbody>`;
@@ -356,16 +482,23 @@ const showEncounters = function (pokemon_encounters) {
 };
 
 // get API data
-const getEncounters = async function() {
+const updateEncounters = async function() {
   try {
+    area = areaAPInames[selectedMap];
     if (blacklist.indexOf(area)==-1) { // if map isn't in the blacklist
+      if (area in cachedAreaEncounters) { // if area has been cached
+        console.log(`showing cached pokémon for area ${area}`);
+        showEncounters(cachedAreaEncounters[area]);
+        return;
+      } // else get the data from the API
       const getData = () =>  fetch(serverEndPoint + area, { headers: customHeaders }).then((r) => r.json());
       const { pokemon_encounters } = await getData();
-      if (pokemon_encounters) {
-        //console.log(pokemon_encounters);
-        showEncounters(pokemon_encounters);
-        return;
-      };
+        if (pokemon_encounters) {
+          //console.log(pokemon_encounters);
+          showEncounters(pokemon_encounters);
+          cachedAreaEncounters[area] = pokemon_encounters;
+          return;
+        };
     };
     console.log(`Missing encounter data from API for ${area}`);
   } catch (ex) {
@@ -375,9 +508,9 @@ const getEncounters = async function() {
 };
 
 document.addEventListener("DOMContentLoaded", function () {
-  console.info("DOM geladen");
-  getEncounters();
-  fetch('./script/maps.json')
+  //console.info("DOM loaded");
+  updateEncounters();
+  fetch('./script/newmaps.json')
       .then(function(resp)
       {return resp.json();})
       .then(function(data){
@@ -386,6 +519,4 @@ document.addEventListener("DOMContentLoaded", function () {
       }); 
 
   listenDirections();
-
-  // document.querySelector(".js-reset").addEventListener('click',function() {socket.emit("F2B_reset")});
 });

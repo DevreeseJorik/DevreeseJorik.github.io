@@ -738,6 +738,9 @@ table tbody:last-child td:last-child{
   border-bottom-right-radius: 15px;
 }
 
+.opac50 {
+  opacity: 50%;
+}
 
 /*------------------------------------*\
 #UTILITIES
