@@ -287,6 +287,7 @@ let areaAPInames = {
   444:"sinnoh-route-206-area",
   469:"sinnoh-route-204-north-towards-floaroma-town",
   473:"sinnoh-route-206-area",
+  494:"canalave-city-area",
   498:"sinnoh-route-204-south-towards-jubilife-city",
   502:"sinnoh-route-207-area",
   523:"canalave-city-area",
@@ -315,20 +316,42 @@ let areaAPInames = {
   676:"sinnoh-route-221-area",
 }
 
-const blacklist = ["jubilife-city-area","sandgem-town-area","verity-lakefront-area","eterna-city-area","floaroma-town-area"]; // list of areas not implemented in API :(
+let convertMethod = {
+  "surf":"surf",
+  "good-rod":"good-rod",
+  "old-rod": "old-rod",
+  "super-rod":"super-rod",
+  "walk":"grass",
+  "gift":"gift"
+}
+
+const blacklist = ["jubilife-city-area","sandgem-town-area","verity-lakefront-area",,"floaroma-town-area","oreburgh-city-area"]; // list of areas not implemented in API :(
 const invalidMaps = ["void","wall chunk"];
 let cachedAreaEncounters = {};
+let EncounterList;
 let encounterTypes = {
   "grass":[2,3],
   "water":[16,20,21,22,23,25]}
-let opacityTable = {  
+let tileSwitches = {  
   "grass":0,
   "water":0}
 
+let validMethods = {
+  "grass":["grass"],
+  "water":["surf","old-rod","good-rod","super-rod"]
+}
+
 let map_layout;
 let game_id = 0; // 0 = Diamond, 1 = Pearl, 2 = Platinum
-let selectedMap = 672;//641;
+let selectedMap = 641;
 let area = areaAPInames[selectedMap];
+let EncounterTableInit = `<table class="encounter_table">
+                          <thead><tr>
+                            <th><div>Pokemon</div></th>
+                            <th><div>Levels</div></th>
+                            <th><div>Method</div></th>
+                            <th><div>Rate</div></th>
+                          </tr></thead>`;
 
 const isMapValid = function(tempMap) {
   if (tempMap > 700) {return false};
@@ -350,8 +373,8 @@ const move = function(direction) {
   let data = isDirectionValid(direction);
   if (data[0]) {
     selectedMap = data[1];
-    console.log(selectedMap);
-    console.log(areaAPInames[selectedMap]);
+    //console.log(selectedMap); //debug print the maps 
+    //console.log(areaAPInames[selectedMap]);
     createMap();
     return
   }
@@ -389,8 +412,8 @@ const listenTiles = function() {
       for (let encTile of encTiles) {
         encTile.classList.add(`${encounterType}`)
         encTile.addEventListener('click',function(){
-        opacityTable[encounterType] = !opacityTable[encounterType];
-        //console.log(`showing ${encounterType}encounters: ${opacityTable[encounterType]}`); 
+        tileSwitches[encounterType] = !tileSwitches[encounterType];
+        //console.log(`showing ${encounterType}encounters: ${tileSwitches[encounterType]}`); 
         updateTileOpacity();
         });
       }
@@ -406,8 +429,8 @@ const updateTileOpacity = function() {
   let opacityChanges = false;
   let encTiles;
 
-  for (let encType in opacityTable) {
-    if (opacityTable[encType]) {
+  for (let encType in tileSwitches) {
+    if (tileSwitches[encType]) {
       opacityChanges = true;
     }
   }
@@ -417,8 +440,8 @@ const updateTileOpacity = function() {
     for (let tile of Tiles) {
         tile.classList.add("opac50");
     };
-    for (let encType in opacityTable) {
-      if (opacityTable[encType]) {
+    for (let encType in tileSwitches) {
+      if (tileSwitches[encType]) {
         for (let subTile of encounterTypes[encType]) {
           encTiles = document.querySelectorAll(`.tile_${subTile}`);
           for (let encTile of encTiles) {
@@ -427,6 +450,7 @@ const updateTileOpacity = function() {
         }
       }
     }
+    updateEncounters()
     return;
   };
 
@@ -452,33 +476,42 @@ const createMap = function () {
   listenTiles()
 };
 
-const showEncounters = function (pokemon_encounters) {
-  let EncounterList = document.querySelector(".encounter_list");
+const showEncounter = function(method) {
+  for (let t in tileSwitches) {
+    if (tileSwitches[t]) { // if pokémon for this tile type should be shown
+      if (validMethods[t].indexOf(method)!=-1) { // and the method of this pokémon matches said type
+        return true;
+      }
+    }
+  }
+}
 
+const showEncounters = function(pokemon_encounters) {
   EncounterList.innerHTML = ``;
   let EncounterCount = pokemon_encounters.length;
   // console.log(pokemon_encounters);
-  let EncounterTable = `<table class="encounter_table">
-                        <thead><tr>
-                          <th><div>Pokemon</div></th>
-                          <th><div>Levels</div></th>
-                          <th><div>Method</div></th>
-                          <th><div>Rate</div></th>
-                        </tr></thead>`;
+  let EncounterTable = EncounterTableInit;
   for (let encounter of pokemon_encounters) {
     let pokemon = encounter["pokemon"];
-    //console.log(pokemon)
     let versionDetails = encounter["version_details"];
     let encounterDetails = versionDetails[game_id]["encounter_details"];
     let detail = encounterDetails[0];
-    EncounterTable += `<tbody><tr>
-                        <td><div><img src="https://img.pokemondb.net/sprites/diamond-pearl/normal/${pokemon.name}.png" alt="picture of pokemon${pokemon.name}"><p>${pokemon.name}</p></div></td>
-                        <td><div>${detail.min_level} - ${detail.max_level}</div></td>
-                        <td><div>${detail.method.name}</div></td>
-                        <td><div>${Math.min(versionDetails[game_id].max_chance,100)}%</div></td>
-                      </tr></tbody>`;
+    let method = convertMethod[detail.method.name]
+    if (showEncounter(method)) {
+      EncounterTable += `<tbody><tr>
+                          <td><div><img src="https://img.pokemondb.net/sprites/diamond-pearl/normal/${pokemon.name}.png" alt="picture of pokemon${pokemon.name}"><p>${pokemon.name}</p></div></td>
+                          <td><div>${detail.min_level} - ${detail.max_level}</div></td>
+                          <td><div>${method}</div></td>
+                          <td><div>${Math.min(versionDetails[game_id].max_chance,100)}%</div></td>
+                         </tr></tbody>`;
     };
-    EncounterList.innerHTML += EncounterTable;
+  };
+  EncounterList.innerHTML += EncounterTable;
+  if (EncounterTable == EncounterTableInit) {
+    console.log("fuck")
+    EncounterList.innerHTML = `<div style="text-align:center">There are encounters here! <br>
+                               Click on a grass,surf or cave tile to show them.</div>`
+  }
 };
 
 // get API data
@@ -487,7 +520,7 @@ const updateEncounters = async function() {
     area = areaAPInames[selectedMap];
     if (blacklist.indexOf(area)==-1) { // if map isn't in the blacklist
       if (area in cachedAreaEncounters) { // if area has been cached
-        console.log(`showing cached pokémon for area ${area}`);
+        //console.log(`showing cached pokémon for area ${area}`);
         showEncounters(cachedAreaEncounters[area]);
         return;
       } // else get the data from the API
@@ -500,7 +533,8 @@ const updateEncounters = async function() {
           return;
         };
     };
-    console.log(`Missing encounter data from API for ${area}`);
+    //console.log(`Missing encounter data from API for ${area}`);
+    EncounterList.innerHTML ="No encounters are present in this map"
   } catch (ex) {
     console.log(ex);
   };
@@ -509,14 +543,15 @@ const updateEncounters = async function() {
 
 document.addEventListener("DOMContentLoaded", function () {
   //console.info("DOM loaded");
-  updateEncounters();
-  fetch('./script/newmaps.json')
+
+  fetch('./script/maps.json')
       .then(function(resp)
       {return resp.json();})
       .then(function(data){
         map_layout = data["map_layout"]
         createMap();
       }); 
-
+  EncounterList = document.querySelector(".encounter_list");
+  updateEncounters();
   listenDirections();
 });
