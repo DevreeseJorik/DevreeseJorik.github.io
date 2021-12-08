@@ -522,12 +522,11 @@ a:hover {
   
 }
 
-
-.direction:hover{
-  -webkit-filter: drop-shadow(1px 1px 0 black)
-  drop-shadow(-1px -1px 0 black);
-  filter: drop-shadow(1px 1px 0 black) 
-  drop-shadow(-1px -1px 0 black);
+.direction:not(.arrow_disable).direction:hover {
+  -webkit-filter: drop-shadow(0 1px 0 white)
+  drop-shadow(0 -1px 0 white);
+  filter: drop-shadow(0 1px 0 white) 
+  drop-shadow(0 -1px 0 white);
 }
 
 .opac50 {
