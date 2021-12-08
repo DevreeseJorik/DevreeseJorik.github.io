@@ -463,8 +463,6 @@ a:hover {
   Customise map areas
 */
 
-
-
 .poketch_wrapper {
   padding-top:20px;
   display: flex;
@@ -499,7 +497,18 @@ a:hover {
     /* width: 9px; */
     height: 5.8px;
   }
+
+  .map_row {
+    filter: sepia(60%) saturate(180%);
+  }
 }
+
+/*
+  Component: directions
+  ---
+  Customise directional buttons
+*/
+
 .direction_left {
   height:120px;
   margin-top:20px;
@@ -522,12 +531,11 @@ a:hover {
   
 }
 
-
-.direction:hover{
-  -webkit-filter: drop-shadow(1px 1px 0 black)
-  drop-shadow(-1px -1px 0 black);
-  filter: drop-shadow(1px 1px 0 black) 
-  drop-shadow(-1px -1px 0 black);
+.direction:not(.arrow_disable).direction:hover {
+  -webkit-filter: drop-shadow(0 1px 0 white)
+  drop-shadow(0 -1px 0 white);
+  filter: drop-shadow(0 1px 0 white) 
+  drop-shadow(0 -1px 0 white);
 }
 
 .opac50 {
