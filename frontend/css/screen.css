@@ -463,8 +463,6 @@ a:hover {
   Customise map areas
 */
 
-
-
 .poketch_wrapper {
   padding-top:20px;
   display: flex;
@@ -499,7 +497,18 @@ a:hover {
     /* width: 9px; */
     height: 5.8px;
   }
+
+  .map_row {
+    filter: sepia(60%) saturate(180%);
+  }
 }
+
+/*
+  Component: directions
+  ---
+  Customise directional buttons
+*/
+
 .direction_left {
   height:120px;
   margin-top:20px;
