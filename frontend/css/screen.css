@@ -499,7 +499,7 @@ a:hover {
   }
 
   .map_row {
-    filter: sepia(60%) saturate(180%);
+   filter: sepia(20%) saturate(120%);
   }
 }
 
