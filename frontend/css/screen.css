@@ -296,7 +296,8 @@ h2 {
     filter:saturate(120%);
   }
   50% {
-    filter:saturate(240%);
+    filter:saturate(200%);
+    opacity:80%;
   }
 
   100% {
@@ -309,7 +310,8 @@ h2 {
     filter:saturate(120%);
   }
   50% {
-    filter:saturate(240%);
+    filter:saturate(200%);
+    opacity:80%;
   }
 
   100% {
@@ -317,17 +319,21 @@ h2 {
   }
 }
 
-.dir_anim {
+.teleport_function,.dir_anim {
   animation: fade-in-animation 1.8s linear infinite;
   -webkit-animation: fade-in-animation 1.8s linear infinite;
 }
 
-.direction:not(.arrow_disable).direction:hover {
-  -webkit-filter: drop-shadow(0 1px 0 white)
-  drop-shadow(0 -1px 0 white);
-  filter: drop-shadow(0 1px 0 white) 
-  drop-shadow(0 -1px 0 white);
+
+@media (pointer: fine) {
+  .direction:not(.arrow_disable).direction:hover {
+    -webkit-filter: drop-shadow(0 1px 0 white)
+    drop-shadow(0 -1px 0 white);
+    filter: drop-shadow(0 1px 0 white) 
+    drop-shadow(0 -1px 0 white);
+  }
 }
+
 
 .arrow_disable {
   opacity:16%;
