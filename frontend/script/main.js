@@ -7,6 +7,7 @@ let serverEndPoint = baseUrl;
 const customHeaders = new Headers()
 customHeaders.append('Accept', 'application/json');
 
+// put these in a seperate Json file later
 let tileColors = {
   0:'#414460',        
   1:'#414460',        
@@ -267,55 +268,63 @@ let tileColors = {
   }
 
 let areaAPInames = {
-  326:"eterna-forest-area",
-  327:"sinnoh-route-205-east-towards-eterna-city",
-  328:"eterna-city-area",
-  329:"eterna-city-area",
-  330:"sinnoh-route-211-west-towards-eterna-city",
-  354:"eterna-forest-area",
-  355:"eterna-forest-area",
-  357:"eterna-city-area",
-  382:"fuego-ironworks-area",
-  383:"sinnoh-route-205-south-towards-floaroma-town",
-  386:"sinnoh-route-206-area",
-  411:"floaroma-town-area",
-  412:"sinnoh-route-205-south-towards-floaroma-town",
-  415:"sinnoh-route-206-area",
-  440:"floaroma-town-area",
-  441:"sinnoh-route-205-south-towards-floaroma-town",
-  442:"valley-windworks-area",
-  444:"sinnoh-route-206-area",
-  469:"sinnoh-route-204-north-towards-floaroma-town",
+  337:"eterna-forest-area",
+  338:"sinnoh-route-205-east-towards-eterna-city",
+  339:"eterna-city-area",
+  340:"eterna-city-area",
+  341:"sinnoh-route-211-west-towards-eterna-city",
+  366:"eterna-forest-area",
+  367:"eterna-forest-area",
+  369:"eterna-city-area",
+  395:"fuego-ironworks-area",
+  396:"sinnoh-route-205-south-towards-floaroma-town",
+  399:"sinnoh-route-206-area",
+  425:"floaroma-town-area",
+  426:"sinnoh-route-205-south-towards-floaroma-town",
+  429:"sinnoh-route-206-area",
+  455:"floaroma-town-area",
+  456:"sinnoh-route-205-south-towards-floaroma-town",
+  457:"valley-windworks-area",
+  459:"sinnoh-route-206-area",
   473:"sinnoh-route-206-area",
-  494:"canalave-city-area",
-  498:"sinnoh-route-204-south-towards-jubilife-city",
+  485:"sinnoh-route-204-north-towards-floaroma-town",
+  494:"hearthome-city-area",
+  495:"hearthome-city-area",
+  524:"hearthome-city-area",
+  525:"hearthome-city-area",
+  524:"sinnoh-route-208-area",
+  523:"sinnoh-route-208-area",
+  511:"canalave-city-area",
+  515:"sinnoh-route-204-south-towards-jubilife-city",
   502:"sinnoh-route-207-area",
   503:"sinnoh-route-207-area",
-  523:"canalave-city-area",
-  524:"sinnoh-route-218-area",
-  525:"sinnoh-route-218-area",
-  527:"jubilife-city-area",
-  526:"jubilife-city-area",
-  528:"sinnoh-route-203-area",
-  529:"sinnoh-route-203-area",
-  530:"oreburgh-city-area",
-  531:"oreburgh-city-area",
-  555:"jubilife-city-area",
-  556:"jubilife-city-area",
-  560:"oreburgh-city-area",
-  585:"sinnoh-route-202-area",
-  610:"mystery-zone-area",
-  611:"verity-lakefront-area",
-  612:"sinnoh-route-201-area",
-  613:"sinnoh-route-201-area",
-  614:"sandgem-town-area",
-  641:"twinleaf-town-area",
-  643:"sinnoh-route-219-area",
-  672:"sinnoh-route-219-area", //actually 220, but same data, api doesn't provide route 220
-  673:"sinnoh-route-219-area",
-  674:"sinnoh-route-221-area",
-  675:"sinnoh-route-221-area",
-  676:"sinnoh-route-221-area",
+  541:"canalave-city-area",
+  542:"sinnoh-route-218-area",
+  543:"sinnoh-route-218-area",
+  544:"jubilife-city-area",
+  545:"jubilife-city-area",
+  546:"sinnoh-route-203-area",
+  547:"sinnoh-route-203-area",
+  548:"oreburgh-city-area",
+  549:"oreburgh-city-area",
+  574:"jubilife-city-area",
+  575:"jubilife-city-area",
+  579:"oreburgh-city-area",
+  601:"mystery-zone-area",
+  602:"mystery-zone-area",
+  605:"sinnoh-route-202-area",
+  631:"mystery-zone-area",
+  632:"verity-lakefront-area",
+  633:"sinnoh-route-201-area",
+  634:"sinnoh-route-201-area",
+  635:"sandgem-town-area",
+  663:"twinleaf-town-area",
+  665:"sinnoh-route-219-area",
+  695:"sinnoh-route-219-area", //actually 220, but same data, api doesn't provide route 220
+  696:"sinnoh-route-219-area",
+  697:"sinnoh-route-221-area",
+  698:"sinnoh-route-221-area",
+  699:"sinnoh-route-221-area",
 }
 
 const pokemonNames =  ["0x0", "bulbasaur", "ivysaur", "venusaur", "charmander", "charmeleon", "charizard",
@@ -380,8 +389,7 @@ const pokemonNames =  ["0x0", "bulbasaur", "ivysaur", "venusaur", "charmander", 
 			"yanmega", "leafeon", "glaceon", "gliscor", "mamoswine", "porygon-z", "gallade", "probopass",
 			"dusknoir", "froslass", "rotom", "uxie", "mesprit", "azelf", "dialga", "palkia", "heatran",
 			"regigigas", "giratina", "cresselia", "phione", "manaphy", "darkrai", "shaymin", "arceus",]
-
-
+//
 
 let convertMethod = {
   "surf":"surf",
@@ -393,12 +401,13 @@ let convertMethod = {
 }
 
 const blacklist = ["mystery-zone-area","jubilife-city-area","sandgem-town-area","verity-lakefront-area",,"floaroma-town-area","oreburgh-city-area"]; // list of areas not implemented in API :(
-const invalidMaps = ["void","wall chunk"];
+const invalidMaps = ["void","wall chunk","empty chunk"];
 let cachedAreaEncounters = {};
 let EncounterList;
 let encounterTypes = {
   "grass":[2,3],
-  "water":[16,20,21,22,23,25]}
+  "water":[16,19,20,21,22,23,25]}
+
 let tileSwitches = {  
   "grass":0,
   "water":0}
@@ -410,7 +419,8 @@ let validMethods = {
 
 let map_layout;
 let game_id = 0; // 0 = Diamond, 1 = Pearl, 2 = Platinum
-let selectedMap = 641;
+let selectedMap = 663;
+let teleport;
 let area = areaAPInames[selectedMap];
 let EncounterTableInit = `<table class="encounter_table">
                           <thead><tr>
@@ -421,9 +431,9 @@ let EncounterTableInit = `<table class="encounter_table">
                           </tr></thead>`;
 
 const isMapValid = function(tempMap) {
-  if (tempMap > 700) {return false};
+  if (tempMap > 716) {return false};
   if (tempMap < 0) {return false};
-  if (invalidMaps.indexOf(map_layout[`Index${tempMap}`])!=-1) {return false}; // if map is not pure walls/void
+  if (invalidMaps.indexOf(map_layout[`${tempMap}`])!=-1) {return false}; // if map is not pure walls/void
   return true;
 }
 
@@ -439,8 +449,8 @@ const disableInvalidDirections = function() {
 
 const isDirectionValid = function(direction) {
   let tempMap = selectedMap;
-  if (direction == "up") { tempMap -= 29; }
-  if (direction == "down") { tempMap += 29; }
+  if (direction == "up") { tempMap -= 30; }
+  if (direction == "down") { tempMap += 30; }
   if (direction == "left") {tempMap -= 1;}
   if (direction == "right") {tempMap += 1;}
   return [isMapValid(tempMap),tempMap];
@@ -485,7 +495,7 @@ const listenTiles = function() {
   for (let encounterType in encounterTypes) {
     // console.log(encounterType);
     for (let subTile of encounterTypes[encounterType]) {
-        encTiles = document.querySelectorAll(`.tile_${subTile}`);
+        encTiles = document.querySelectorAll(`.tile_${(subTile & 0xFF)}`);
       for (let encTile of encTiles) {
         encTile.classList.add(`${encounterType}`)
         encTile.addEventListener('click',function(){
@@ -494,17 +504,42 @@ const listenTiles = function() {
         updateTileOpacity();
         });
 
-        // encTile.addEventListener('mouseenter',function(){
-        //   console.log(`hovering ${encTile}`);
-        //   });
-        // encTile.addEventListener('mouseleave',function(){
-        //     console.log(`stopped hovering ${encTile}`);
-        // });
-
       }
     }
   }
   updateTileOpacity() // run once to update all opacities to correct value upon loading new map
+}
+
+const listenTeleport = function() {
+  teleport = document.querySelector(".teleport_function");
+  teleport.addEventListener('click',function(){
+    showTeleportationMap();
+  });
+}
+
+const ifEncounterTilePresent = function(encounterType) {
+  let tileGrid = document.querySelectorAll(".tile")
+  for (let tile of tileGrid) {
+    for (let className of tile.classList) {
+        if (className == encounterType) {
+          return true;
+      }
+    }
+  }
+  return false;
+}
+
+const ifAnyEncounterTilePresent = function() {
+  let tileGrid = document.querySelectorAll(".tile")
+  for (let tile of tileGrid) {
+    for (let className of tile.classList) {
+      for (let encounterType in encounterTypes)
+        if (className == encounterType) {
+        return true;
+      }
+    }
+  }
+  return false;
 }
 
 // show data
@@ -519,7 +554,6 @@ const updateTileOpacity = function() {
       opacityChanges = true;
     }
   }
-
   // if opacity changes should occur
   if (opacityChanges) {
     for (let tile of Tiles) {
@@ -528,7 +562,7 @@ const updateTileOpacity = function() {
     for (let encType in tileSwitches) {
       if (tileSwitches[encType]) {
         for (let subTile of encounterTypes[encType]) {
-          encTiles = document.querySelectorAll(`.tile_${subTile}`);
+          encTiles = document.querySelectorAll(`.tile_${(subTile & 0xFF)}`);
           for (let encTile of encTiles) {
             encTile.classList.remove("opac50");
           }
@@ -549,12 +583,13 @@ const updateTileOpacity = function() {
 const createMap = function () {
   let map = document.querySelector(".game_map");
   map.innerHTML = "";
+  map.classList.remove("tp_map");
 
-  for (let row of map_layout[`Index${selectedMap}`])
+  for (let row of map_layout[`${selectedMap}`])
     {
     let tiles ="";
     for (let value of row) {
-      let tile_data = `<div class="tile_${value} tile" style="background-color:${getTileColor(value)}"><wbr></div>`;
+      let tile_data = `<div class="tile_${value & 0xFF} tile" style="background-color:${getTileColor(value)}"><wbr></div>`;
       tiles += tile_data;
     };
     map.innerHTML += `<div class="map_row">${tiles}</div>`;
@@ -562,6 +597,156 @@ const createMap = function () {
   listenTiles();
   disableInvalidDirections();
 };
+
+const tpAreas = {
+  "mapchunk_900":663, // twinleaf
+  "mapchunk_901":663,
+
+  "mapchunk_870":635, // sandgem
+  "mapchunk_871":635,
+  "mapchunk_838":635,
+  "mapchunk_839":635,
+
+  "mapchunk_741":575, // jubilife
+  "mapchunk_742":575,
+  "mapchunk_773":575,
+  "mapchunk_774":575,
+
+  "mapchunk_674":511, //canalave
+  "mapchunk_706":511,
+  "mapchunk_738":511,
+
+  "mapchunk_582":455, // floaroma
+  "mapchunk_614":455,
+
+  "mapchunk_457":339, // eterna
+  "mapchunk_458":339,
+  "mapchunk_459":339,
+  "mapchunk_489":339, 
+  "mapchunk_490":339,
+  "mapchunk_491":339,
+  "mapchunk_521":339,
+  "mapchunk_522":339,
+  "mapchunk_523":339,
+
+  "mapchunk_745":549, // oreburgh
+  "mapchunk_746":549,
+  "mapchunk_778":549,
+
+  "mapchunk_687":494, //hearthome
+  "mapchunk_688":494,
+  "mapchunk_689":494,
+  "mapchunk_720":494,
+  "mapchunk_719":494,
+  "mapchunk_721":494,
+
+  "mapchunk_464":344, // celestic
+  "mapchunk_465":344,
+  "mapchunk_496":344,
+  "mapchunk_497":344,
+  
+  "mapchunk_567":442, // veilstone
+  "mapchunk_568":442,
+  "mapchunk_599":442,
+  "mapchunk_600":442,
+
+  "mapchunk_626":467, // solaceon
+  "mapchunk_627":467,
+  "mapchunk_628":467,
+
+  "mapchunk_819":618, // pastoria
+  "mapchunk_820":618, 
+  "mapchunk_821":618, 
+  "mapchunk_851":618, 
+  "mapchunk_852":618, 
+  "mapchunk_853":618, 
+  "mapchunk_883":618,
+  "mapchunk_884":618,
+  "mapchunk_885":618,
+
+  "mapchunk_764":596, // sunyshore
+  "mapchunk_765":596,
+  "mapchunk_766":596,
+  "mapchunk_796":596,
+  "mapchunk_797":596,
+  "mapchunk_798":596,
+  "mapchunk_828":596,
+  "mapchunk_829":596,
+  "mapchunk_830":596,
+
+  "mapchunk_508":386, // pokeleague
+  "mapchunk_509":386,
+  "mapchunk_540":386,
+  "mapchunk_541":386,
+
+  "mapchunk_76":41, // snowpoint 
+  "mapchunk_77":41,
+  "mapchunk_108":41,
+  "mapchunk_109":41,
+  "mapchunk_140":41,
+  "mapchunk_141":41,
+
+  "mapchunk_411":295, // resort area
+  "mapchunk_412":295,
+
+  "mapchunk_372":260, // fight area
+  "mapchunk_373":260,
+  "mapchunk_374":260,
+
+  "mapchunk_246":170, // survival area
+  "mapchunk_246":171,
+
+  "mapchunk_130":91, // fullmoon island
+  "mapchunk_131":91,
+  "mapchunk_162":91, 
+  "mapchunk_163":91,
+
+  "mapchunk_133":94, // newmoon island
+  "mapchunk_134":94,
+  "mapchunk_165":94,
+  "mapchunk_166":94,
+
+  "mapchunk_420":303, // iron island 
+  "mapchunk_421":303,
+  "mapchunk_452":303,
+  "mapchunk_453":303,
+
+  "mapchunk_190":58, // flower paradise
+  "mapchunk_191":58,
+}
+
+const listenTeleportMap = function() {
+  let mapchunks = document.querySelectorAll(".mapchunk");
+  console.log("teleport map listening")
+  for (let mapchunk of mapchunks) {
+    if (tpAreas[mapchunk.classList[1]]) {
+      mapchunk.classList.add("tp_area");
+      mapchunk.addEventListener('click',function() {
+        console.log(tpAreas[mapchunk.classList[1]])
+        selectedMap = tpAreas[mapchunk.classList[1]];
+        createMap()
+        }
+      )
+    }
+  }
+}
+
+const showTeleportationMap = function() {
+  let map = document.querySelector(".game_map");
+  map.classList.add("tp_map");
+  map.innerHTML = ""
+  //map.innerHTML = `<img src="img/teleport_map.png" class="teleport_map"</img>`;
+  for (let i=0;i<32;i++) {
+    let mapChunks =""
+    for (let j=0;j<32;j++) {
+    let mapChunk= `<div class="tile mapchunk_${i*32+j} mapchunk"><wbr></div>`;
+    mapChunks += mapChunk;
+    }
+    map.innerHTML += `<div class="map_row">${mapChunks}</div>`;
+  }
+  listenTeleportMap()
+}
+
 
 const showEncounter = function(method) {
   for (let t in tileSwitches) {
@@ -574,6 +759,10 @@ const showEncounter = function(method) {
 }
 
 const showEncounters = function(pokemon_encounters) {
+  if (!ifAnyEncounterTilePresent()) {
+    EncounterList.innerHTML = "No encounters are present in this map."
+    return;
+  }
   EncounterList.innerHTML = ``;
   let EncounterCount = pokemon_encounters.length;
   // console.log(pokemon_encounters);
@@ -622,7 +811,7 @@ const updateEncounters = async function() {
         };
     };
     //console.log(`Missing encounter data from API for ${area}`);
-    EncounterList.innerHTML ="No encounters are present in this map."
+    EncounterList.innerHTML = "No encounters are present in this map."
   } catch (ex) {
     console.log(ex);
   };
@@ -632,7 +821,7 @@ const updateEncounters = async function() {
 document.addEventListener("DOMContentLoaded", function () {
   //console.info("DOM loaded");
 
-  fetch('./script/maps.json')
+  fetch('./script/fixarray.json')
       .then(function(resp)
       {return resp.json();})
       .then(function(data){
@@ -642,4 +831,5 @@ document.addEventListener("DOMContentLoaded", function () {
   EncounterList = document.querySelector(".encounter_list");
   updateEncounters();
   listenDirections();
+  listenTeleport();
 });
