@@ -1,11 +1,11 @@
 {
-    "name": "MCT",
-    "short_name": "MCT",
+    "name": "Poketch App",
+    "short_name": "Poketch App",
     "icons": [{
-      "src": "google-touch-icon.png",
+      "src": "img/poketch_full.png",
       "sizes": "512x512"
     }],
-    "theme_color": "#44c8f5",
-    "background_color": "#44c8f5",
+    "theme_color": "#81182D",
+    "background_color": "#81182D",
     "display": "standalone"
   }
