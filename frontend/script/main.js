@@ -925,7 +925,7 @@ const updateEncounters = async function() {
 document.addEventListener("DOMContentLoaded", function () {
   //console.info("DOM loaded");
 
-  fetch('./script/fixarray.json')
+  fetch('./script/maps.json')
       .then(function(resp)
       {return resp.json();})
       .then(function(data){
