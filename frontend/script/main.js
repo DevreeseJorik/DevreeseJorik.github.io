@@ -356,6 +356,7 @@ let areaAPInames = {
   472:"sinnoh-route-214-area",
   476:"sinnoh-sea-route-223-area",
   485:"sinnoh-route-204-north-towards-floaroma-town",
+  489:"sinnoh-route-206-area",
   494:"hearthome-city-area",
   495:"hearthome-city-area",
   497:"sinnoh-route-209-area",
@@ -363,6 +364,8 @@ let areaAPInames = {
   506:"sinnoh-sea-route-223-area",
   511:"canalave-city-area",
   515:"sinnoh-route-204-south-towards-jubilife-city",
+  519:"sinnoh-route-207-area",
+  520:"sinnoh-route-207-area",
   524:"hearthome-city-area",
   525:"hearthome-city-area",
   523:"sinnoh-route-208-area",
@@ -922,7 +925,7 @@ const updateEncounters = async function() {
 document.addEventListener("DOMContentLoaded", function () {
   //console.info("DOM loaded");
 
-  fetch('./script/fixarray.json')
+  fetch('./script/maps.json')
       .then(function(resp)
       {return resp.json();})
       .then(function(data){

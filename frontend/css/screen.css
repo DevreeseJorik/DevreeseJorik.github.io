@@ -244,7 +244,18 @@ h2 {
 
 }
 
+/*
+  Component: tiles
+  ---
+  Customise tile effects
+*/
 
+/* .grass,.water {
+} */
+
+/* .water {
+
+} */
 
 /*
   Component: directions
@@ -253,17 +264,23 @@ h2 {
 */
 
 .direction_left {
-  height: var(--side-button-height);
-  margin-top: var(--side-button-margin-top);
   margin-right: var(--side-button-margin-side);
   /* background-color:green; */
 }
 
+.direction_left > img {
+  height: var(--side-button-height);
+  margin-top: var(--side-button-margin-top);
+}
+
 .direction_right {
-  height:var(--side-button-height);
-  margin-top:var(--side-button-margin-top);
   margin-left: var(--side-button-margin-side);
   /* background-color:red; */
+}
+
+.direction_right > img {
+  height:var(--side-button-height);
+  margin-top:var(--side-button-margin-top);
 }
 
 .direction_down,.direction_up {
@@ -274,6 +291,37 @@ h2 {
   
 }
 
+@keyframes fade-in-animation {
+  0% {
+    filter:saturate(120%);
+  }
+  50% {
+    filter:saturate(240%);
+  }
+
+  100% {
+    filter:saturate(120%);
+  }
+}
+
+@-webkit-keyframes fade-in-animation {
+  0% {
+    filter:saturate(120%);
+  }
+  50% {
+    filter:saturate(240%);
+  }
+
+  100% {
+    filter:saturate(120%);
+  }
+}
+
+.dir_anim {
+  animation: fade-in-animation 1.8s linear infinite;
+  -webkit-animation: fade-in-animation 1.8s linear infinite;
+}
+
 .direction:not(.arrow_disable).direction:hover {
   -webkit-filter: drop-shadow(0 1px 0 white)
   drop-shadow(0 -1px 0 white);
@@ -281,12 +329,12 @@ h2 {
   drop-shadow(0 -1px 0 white);
 }
 
-.opac50 {
-  opacity: 50%;
+.arrow_disable {
+  opacity:16%;
 }
 
-.arrow_disable {
-  opacity:40%;
+.opac50{
+  opacity: 50%;
 }
 
 .encounter_header {
