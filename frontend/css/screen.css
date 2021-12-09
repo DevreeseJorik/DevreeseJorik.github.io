@@ -42,6 +42,17 @@ html {
   box-sizing: inherit;
 }
 
+/*------------------------------------*\
+#CSS VARIABLES
+\*------------------------------------*/
+
+:root {
+  --tile-border-radius:15px;
+  --enc-table-border-radius:15px;
+  --side-button-height:120px;
+  --side-button-margin-top:34px;
+  --side-button-margin-side: 20px;
+}
 
 /*------------------------------------*\
 #Elements
@@ -80,90 +91,6 @@ h2 {
   font-size: 32px;
   line-height: 40px;
   margin: 0 0 24px;
-}
-
-h3 {
-  font-size: 26px;
-  line-height: 32px;
-  margin: 0 0 24px;
-}
-
-h4,
-h5,
-h6 {
-  font-size: 20px;
-  line-height: 24px;
-  margin: 0 0 24px;
-}
-
-p,
-ol,
-ul,
-dl,
-table,
-address,
-figure {
-  margin: 0 0 24px;
-}
-
-ul,
-ol {
-  padding-left: 24px;
-}
-
-li ul,
-li ol {
-  margin-bottom: 0;
-}
-
-.svg {
-  width:20px;
-}
-
-blockquote {
-  font-style: normal;
-  font-size: 23px;
-  line-height: 32px;
-  margin: 0 0 24px;
-}
-
-blockquote * {
-  font-size: inherit;
-  line-height: inherit;
-}
-
-figcaption {
-  font-weight: 200;
-  font-size: 12px;
-  line-height: 16px;
-  margin-top: 8px;
-}
-
-/* hr {
-  border: 0;
-  height: 1px;
-  background: LightGrey;
-  margin: 0 0 24px;
-} */
-
-
-
-
-
-/* 
-a {
-  color: white;
-  transition: all .1s ease-in-out;
-} */
-
-a:visited,
-a:active,
-a:focus {
-  color: #748c00
-}
-
-a:hover {
-  color: #d2e673;
 }
 
 
@@ -483,25 +410,40 @@ a:hover {
   .map_wrapper { 
     display:flex;
     justify-content: center;
-    margin-top:30px;
-    margin-bottom:30px;
+    margin-top:20px;
+    margin-bottom:20px;
   }
   .map_row {
     display: grid;
-    grid-template-columns: repeat(32,6.2px);
+    grid-template-columns: repeat(32,6.7px);
     /*grid-template-rows: repeat(32);*/
   }
 
   .map_row > * {
     margin-top: -1px;
     /* width: 9px; */
-    height: 5.8px;
+    height: 6.8px;
   }
 
   .map_row {
-    filter: sepia(60%) saturate(180%);
+   filter: sepia(20%) saturate(120%);
+  }
+
+  .map_row:first-child > *:first-child {
+    border-top-left-radius: var(--tile-border-radius);
+  }
+  .map_row:first-child > *:last-child {
+    border-top-right-radius: var(--tile-border-radius);
+  }
+  .map_row:last-child > *:first-child {
+    border-bottom-left-radius: var(--tile-border-radius);
+  }
+  .map_row:last-child > *:last-child {
+    border-bottom-right-radius: var(--tile-border-radius);
   }
 }
+
+
 
 /*
   Component: directions
@@ -510,16 +452,16 @@ a:hover {
 */
 
 .direction_left {
-  height:120px;
-  margin-top:20px;
-  margin-right: 30px;
+  height: var(--side-button-height);
+  margin-top: var(--side-button-margin-top);
+  margin-right: var(--side-button-margin-side);
   /* background-color:green; */
 }
 
 .direction_right {
-  height:120px;
-  margin-top:20px;
-  margin-left: 30px;
+  height:var(--side-button-height);
+  margin-top:var(--side-button-margin-top);
+  margin-left: var(--side-button-margin-side);
   /* background-color:red; */
 }
 
