@@ -2,7 +2,7 @@
     "name": "Poketch App",
     "short_name": "Poketch App",
     "icons": [{
-      "src": "img/poketch_full.png",
+      "src": "img/poketch_icon.png",
       "sizes": "512x512"
     }],
     "theme_color": "#81182D",

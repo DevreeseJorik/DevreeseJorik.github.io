@@ -7,265 +7,264 @@ let serverEndPoint = baseUrl;
 const customHeaders = new Headers()
 customHeaders.append('Accept', 'application/json');
 
-// put these in a seperate Json file later
-let tileColors = {
-  0:'#414460',        
-  1:'#414460',        
-  2:'#5AB450',
-  3:'#2aa615',      
-  4:'#414460',        
-  5:'#414460',        
-  6:'#bb7410',      
-  7:'#414460',        
-  8:'#bb7410',      
-  9:'#414460',        
-  10:'#414460',       
-  11:'#A292BC',     
-  12:'#bb7410',     
-  13:'#414460',       
-  14:'#414460',       
-  15:'#414460',       
-  16:'#4582E1',
-  17:'#4582E1',
-  18:'#4582E1',
-  19:'#4582E1',
-  20:'#4582E1',
-  21:'#4582E1',
-  22:'#4582E1',
-  23:'#4582E1',
-  24:'#414460',
-  25:'#4582E1',
-  26:'#414460',
-  27:'#414460',
-  28:'#414460',
-  29:'#414460',
-  30:'#414460',
-  31:'#414460',
-  32:'#56b3e0',
-  33:'#FFF195',
-  34:'#4582E1',
-  35:'#414460',
-  36:'#414460',
-  37:'#414460',
-  38:'#414460',
-  39:'#414460',
-  40:'#414460',
-  41:'#414460',
-  42:'#4582E1',
-  43:'#414460',
-  44:'#414460',
-  45:'#414460',
-  46:'#414460',
-  47:'#414460',
-  48:'#a090f0',
-  49:'#a090f0',
-  50:'#a090f0',
-  51:'#a090f0',
-  52:'#a090f0',
-  53:'#a090f0',
-  54:'#a090f0',
-  55:'#a090f0',
-  56:'#AC5B2C',
-  57:'#AC5B2C',
-  58:'#AC5B2C',
-  59:'#AC5B2C',
-  60:'#AC5B2C',
-  61:'#AC5B2C',
-  62:'#AC5B2C',
-  63:'#AC5B2C',
-  64:'#ffd000',
-  65:'#ffd000',
-  66:'#ffd000',
-  67:'#ffd000',
-  68:'#414460',
-  69:'#414460',
-  70:'#414460',
-  71:'#414460',
-  72:'#414460',
-  73:'#ffd000',
-  74:'#ffd000',
-  75:'#C76000',
-  76:'#C76000',
-  77:'#414460',
-  78:'#414460',
-  79:'#414460',
-  80:'#414460',
-  81:'#414460',
-  82:'#414460',
-  83:'#414460',
-  84:'#414460',
-  85:'#414460',
-  86:'#afb000',
-  87:'#afb000',
-  88:'#afb000',
-  89:'#a090f0',
-  90:'#414460',
-  91:'#414460',
-  92:'#414460',
-  93:'#414460',
-  94:'#D83932',
-  95:'#D83932',
-  96:'#414460',
-  97:'#414460',
-  98:'#D83932',
-  99:'#D83932',
-  100:'#414460',
-  101:'#D83932',
-  102:'#414460',
-  103:'#a0a000',
-  104:'#414460',
-  105:'#D83932',
-  106:'#D83932',
-  107:'#414460',
-  108:'#D83932',
-  109:'#D83932',
-  110:'#D83932',
-  111:'#D83932',
-  112:'#C79000',
-  113:'#C79000',
-  114:'#C79000',
-  115:'#C79000',
-  116:'#C79000',
-  117:'#C79000',
-  118:'#C7A550',
-  119:'#C7A550',
-  120:'#C7A550',
-  121:'#C7A550',
-  122:'#C7A550',
-  123:'#40a000',
-  124:'#4582E1',
-  125:'#C7A550',
-  126:'#414460',
-  127:'#414460',
-  128:'#f7a000',
-  129:'#414460',
-  130:'#414460',
-  131:'#0690b0',
-  132:'#414460',
-  133:'#00eee0',
-  134:'#4290e0',
-  135:'#414460',
-  136:'#0ddd70',
-  137:'#414460',
-  138:'#414460',
-  139:'#414460',
-  140:'#414460',
-  141:'#414460',
-  142:'white',
-  143:'white',
-  144:'#414460',
-  145:'#414460',
-  146:'#414460',
-  147:'#414460',
-  148:'#414460',
-  149:'#414460',
-  150:'#414460',
-  151:'#414460',
-  152:'#414460',
-  153:'#414460',
-  154:'#414460',
-  155:'#414460',
-  156:'#414460',
-  157:'#414460',
-  158:'#414460',
-  159:'#414460',
-  160:'#b27030',
-  161:'#8da9cb',
-  162:'#6483a7',
-  163:'#52749d',
-  164:'#928970',
-  165:'#927040',
-  166:'#409000',
-  167:'#559060',
-  168:'#b9d0eb',
-  169:'#414460',
-  170:'#414460',
-  171:'#414460',
-  172:'#414460',
-  173:'#414460',
-  174:'#414460',
-  175:'#414460',
-  176:'#414460',
-  177:'#414460',
-  178:'#414460',
-  179:'#414460',
-  180:'#414460',
-  181:'#414460',
-  182:'#414460',
-  183:'#414460',
-  184:'#414460',
-  185:'#414460',
-  186:'#414460',
-  187:'#414460',
-  188:'#414460',
-  189:'#414460',
-  190:'#414460',
-  191:'#414460',
-  192:'#414460',
-  193:'#414460',
-  194:'#414460',
-  195:'#414460',
-  196:'#414460',
-  197:'#414460',
-  198:'#414460',
-  199:'#414460',
-  200:'#414460',
-  201:'#414460',
-  202:'#414460',
-  203:'#414460',
-  204:'#414460',
-  205:'#414460',
-  206:'#414460',
-  207:'#414460',
-  208:'#414460',
-  209:'#414460',
-  210:'#414460',
-  211:'#414460',
-  212:'#414460',
-  213:'#414460',
-  214:'#414460',
-  215:'#B89000',
-  216:'#B89000',
-  217:'#A88000',
-  218:'#A88000',
-  219:'#0690a0',
-  220:'#414460',
-  221:'#414460',
-  222:'#414460',
-  223:'#414460',
-  224:'#0ddd70',
-  225:'#0ddd70',
-  226:'#0ddd70',
-  227:'#414460',
-  228:'#06b040',
-  229:'white',
-  230:'#414460',
-  231:'#414460',
-  232:'#414460',
-  233:'#414460',
-  234:'#414460',
-  235:'#414460',
-  236:'#414460',
-  237:'#414460',
-  238:'#414460',
-  239:'#414460',
-  240:'#414460',
-  241:'#414460',
-  242:'#414460',
-  243:'#414460',
-  244:'#414460',
-  245:'#414460',
-  246:'#414460',
-  247:'#414460',
-  248:'#414460',
-  249:'#414460',
-  250:'#414460',
-  251:'#414460',
-  252:'#414460',
-  253:'#414460',
-  254:'#414460',
-  255:'#414460',
-  }
+let tileColors = [
+  "#414460",        
+  "#414460",        
+  "#5AB450",
+  "#2aa615",      
+  "#414460",        
+  "#414460",        
+  "#bb7410",      
+  "#414460",        
+  "#bb7410",      
+  "#414460",        
+  "#414460",       
+  "#A292BC",     
+  "#bb7410",     
+  "#414460",       
+  "#414460",       
+  "#414460",       
+  "#4864F0",
+  "#4864F0",
+  "#4864F0",
+  "#4864F0",
+  "#4864F0",
+  "#4864F0",
+  "#4864F0",
+  "#4864F0",
+  "#414460",
+  "#4864F0",
+  "#414460",
+  "#414460",
+  "#414460",
+  "#414460",
+  "#414460",
+  "#414460",
+  "#56b3e0",
+  "#FFF195",
+  "#4864F0",
+  "#414460",
+  "#414460",
+  "#414460",
+  "#414460",
+  "#414460",
+  "#414460",
+  "#414460",
+  "#4864F0",
+  "#414460",
+  "#414460",
+  "#414460",
+  "#414460",
+  "#414460",
+  "#a090f0",
+  "#a090f0",
+  "#a090f0",
+  "#a090f0",
+  "#a090f0",
+  "#a090f0",
+  "#a090f0",
+  "#a090f0",
+  "#AC5B2C",
+  "#AC5B2C",
+  "#AC5B2C",
+  "#AC5B2C",
+  "#AC5B2C",
+  "#AC5B2C",
+  "#AC5B2C",
+  "#AC5B2C",
+  "#ffd000",
+  "#ffd000",
+  "#ffd000",
+  "#ffd000",
+  "#414460",
+  "#414460",
+  "#414460",
+  "#414460",
+  "#414460",
+  "#ffd000",
+  "#ffd000",
+  "#C76000",
+  "#C76000",
+  "#414460",
+  "#414460",
+  "#414460",
+  "#414460",
+  "#414460",
+  "#414460",
+  "#414460",
+  "#414460",
+  "#414460",
+  "#afb000",
+  "#afb000",
+  "#afb000",
+  "#a090f0",
+  "#414460",
+  "#414460",
+  "#414460",
+  "#414460",
+  "#D83932",
+  "#D83932",
+  "#414460",
+  "#414460",
+  "#D83932",
+  "#D83932",
+  "#414460",
+  "#D83932",
+  "#414460",
+  "#a0a000",
+  "#414460",
+  "#D83932",
+  "#D83932",
+  "#414460",
+  "#D83932",
+  "#D83932",
+  "#D83932",
+  "#D83932",
+  "#C79000",
+  "#C79000",
+  "#C79000",
+  "#C79000",
+  "#C79000",
+  "#C79000",
+  "#C7A550",
+  "#C7A550",
+  "#C7A550",
+  "#C7A550",
+  "#C7A550",
+  "#40a000",
+  "#4864F0",
+  "#C7A550",
+  "#414460",
+  "#414460",
+  "#f7a000",
+  "#414460",
+  "#414460",
+  "#0690b0",
+  "#414460",
+  "#00eee0",
+  "#4290e0",
+  "#414460",
+  "#0ddd70",
+  "#414460",
+  "#414460",
+  "#414460",
+  "#414460",
+  "#414460",
+  "white",
+  "white",
+  "#414460",
+  "#414460",
+  "#414460",
+  "#414460",
+  "#414460",
+  "#414460",
+  "#414460",
+  "#414460",
+  "#414460",
+  "#414460",
+  "#414460",
+  "#414460",
+  "#414460",
+  "#414460",
+  "#414460",
+  "#414460",
+  "#b27030",
+  "#8da9cb",
+  "#6483a7",
+  "#52749d",
+  "#928970",
+  "#927040",
+  "#409000",
+  "#559060",
+  "#b9d0eb",
+  "#414460",
+  "#414460",
+  "#414460",
+  "#414460",
+  "#414460",
+  "#414460",
+  "#414460",
+  "#414460",
+  "#414460",
+  "#414460",
+  "#414460",
+  "#414460",
+  "#414460",
+  "#414460",
+  "#414460",
+  "#414460",
+  "#414460",
+  "#414460",
+  "#414460",
+  "#414460",
+  "#414460",
+  "#414460",
+  "#414460",
+  "#414460",
+  "#414460",
+  "#414460",
+  "#414460",
+  "#414460",
+  "#414460",
+  "#414460",
+  "#414460",
+  "#414460",
+  "#414460",
+  "#414460",
+  "#414460",
+  "#414460",
+  "#414460",
+  "#414460",
+  "#414460",
+  "#414460",
+  "#414460",
+  "#414460",
+  "#414460",
+  "#414460",
+  "#414460",
+  "#414460",
+  "#B89000",
+  "#B89000",
+  "#A88000",
+  "#A88000",
+  "#0690a0",
+  "#414460",
+  "#414460",
+  "#414460",
+  "#414460",
+  "#0ddd70",
+  "#0ddd70",
+  "#0ddd70",
+  "#414460",
+  "#06b040",
+  "white",
+  "#414460",
+  "#414460",
+  "#414460",
+  "#414460",
+  "#414460",
+  "#414460",
+  "#414460",
+  "#414460",
+  "#414460",
+  "#414460",
+  "#414460",
+  "#414460",
+  "#414460",
+  "#414460",
+  "#414460",
+  "#414460",
+  "#414460",
+  "#414460",
+  "#414460",
+  "#414460",
+  "#414460",
+  "#414460",
+  "#414460",
+  "#414460",
+  "#414460",
+  "#414460"
+  ]
 
 let areaAPInames = {
   39:"acuity-lakefront-area",
@@ -306,6 +305,8 @@ let areaAPInames = {
   259:"fight-area-area",
   260:"fight-area-area",
   261:"sinnoh-sea-route-230-area",
+  262:"sinnoh-sea-route-230-area",
+  263:"sinnoh-sea-route-230-area",
   264:"sinnoh-route-229-area",
   265:"sinnoh-route-229-area",
   268:"seabreak-path-area",
@@ -383,7 +384,7 @@ let areaAPInames = {
   547:"sinnoh-route-203-area",
   548:"oreburgh-city-area",
   549:"oreburgh-city-area",
-  554:"sinnoh-route-212-area",
+  554:"sinnoh-route-212-north-towards-hearthome-city",
   561:"valor-lakefront-area",
   562:"valor-lakefront-area",
   566:"sunyshore-city-area",
@@ -391,7 +392,7 @@ let areaAPInames = {
   574:"jubilife-city-area",
   575:"jubilife-city-area",
   579:"oreburgh-city-area",
-  584:"sinnoh-route-212-area",
+  584:"sinnoh-route-212-north-towards-hearthome-city",
   591:"valor-lakefront-area",
   592:"valor-lakefront-area",
   593:"sinnoh-route-222-area",
@@ -402,7 +403,7 @@ let areaAPInames = {
   601:"mystery-zone-area",
   602:"mystery-zone-area",
   605:"sinnoh-route-202-area",
-  614:"sinnoh-route-212-area",
+  614:"sinnoh-route-212-north-towards-hearthome-city",
   618:"pastoria-city-area",
   619:"pastoria-city-area",
   620:"sinnoh-route-213-area",
@@ -413,10 +414,10 @@ let areaAPInames = {
   633:"sinnoh-route-201-area",
   634:"sinnoh-route-201-area",
   635:"sandgem-town-area",
-  644:"sinnoh-route-212-area",
-  645:"sinnoh-route-212-area",
-  646:"sinnoh-route-212-area",
-  647:"sinnoh-route-212-area",
+  644:"sinnoh-route-212-east-towards-pastoria-city",
+  645:"sinnoh-route-212-east-towards-pastoria-city",
+  646:"sinnoh-route-212-east-towards-pastoria-city",
+  647:"sinnoh-route-212-east-towards-pastoria-city",
   648:"pastoria-city-area",
   649:"pastoria-city-area",
   650:"sinnoh-route-213-area",
@@ -442,7 +443,7 @@ const pokemonNames =  ["0x0", "bulbasaur", "ivysaur", "venusaur", "charmander", 
 			"growlithe", "arcanine", "poliwag", "poliwhirl", "poliwrath", "abra", "kadabra", "alakazam",
 			"machop", "machoke", "machamp", "bellsprout", "weepinbell", "victreebel", "tentacool", "tentacruel",
 			"geodude", "graveler", "golem", "ponyta", "rapidash", "slowpoke", "slowbro",
-			"magnemite", "magneton", "farfetch'd", "doduo", "dodrio", "seel", "dewgong", "grimer", "muk",
+			"magnemite", "magneton", "farfetchd", "doduo", "dodrio", "seel", "dewgong", "grimer", "muk",
 			"shellder", "cloyster", "gastly", "haunter", "gengar", "onix", "drowzee", "hypno",
 			"krabby", "kingler", "voltorb", "electrode", "exeggcute", "exeggutor", "cubone", "marowak",
 			"hitmonlee", "hitmonchan", "lickitung", "koffing", "weezing", "rhyhorn", "rhydon", "chansey",
@@ -493,7 +494,6 @@ const pokemonNames =  ["0x0", "bulbasaur", "ivysaur", "venusaur", "charmander", 
 			"yanmega", "leafeon", "glaceon", "gliscor", "mamoswine", "porygon-z", "gallade", "probopass",
 			"dusknoir", "froslass", "rotom", "uxie", "mesprit", "azelf", "dialga", "palkia", "heatran",
 			"regigigas", "giratina", "cresselia", "phione", "manaphy", "darkrai", "shaymin", "arceus",]
-//
 
 let convertMethod = {
   "surf":"surf",
@@ -508,6 +508,7 @@ const blacklist = ["mystery-zone-area","jubilife-city-area","sandgem-town-area",
 const invalidMaps = ["void","wall chunk","empty chunk"];
 let cachedAreaEncounters = {};
 let EncounterList;
+let EncounterSection;
 let encounterTypes = {
   "grass":[2,3],
   "water":[16,19,20,21,23,25]}
@@ -525,6 +526,7 @@ let map_layout;
 let game_id = 0; // 0 = Diamond, 1 = Pearl, 2 = Platinum
 let selectedMap = 663;
 let teleport;
+let showTeleportMap = false;
 let area = areaAPInames[selectedMap];
 let EncounterTableInit = `<table class="encounter_table">
                           <thead><tr>
@@ -551,6 +553,13 @@ const disableInvalidDirections = function() {
   }
 }
 
+const disableDirections = function() {
+  let dirBtns = document.querySelectorAll(".direction");
+  for (let dirBtn of dirBtns) {
+    dirBtn.classList.add("arrow_disable"); // reset opacity
+  }
+}
+
 const isDirectionValid = function(direction) {
   let tempMap = selectedMap;
   if (direction == "up") { tempMap -= 30; }
@@ -562,7 +571,7 @@ const isDirectionValid = function(direction) {
 
 const move = function(direction) {
   let data = isDirectionValid(direction);
-  if (data[0]) {
+  if (data[0] && !showTeleportMap) {
     selectedMap = data[1];
     console.log(selectedMap); //debug print the maps 
     console.log(areaAPInames[selectedMap]);
@@ -617,7 +626,7 @@ const listenTiles = function() {
 const listenTeleport = function() {
   teleport = document.querySelector(".teleport_function");
   teleport.addEventListener('click',function(){
-    showTeleportationMap();
+    toggleTeleportationMap();
   });
 }
 
@@ -828,27 +837,41 @@ const listenTeleportMap = function() {
       mapchunk.addEventListener('click',function() {
         console.log(tpAreas[mapchunk.classList[1]])
         selectedMap = tpAreas[mapchunk.classList[1]];
-        createMap()
+        EncounterSection.innerHTML = "Encounter Data";
+        EncounterSection.classList.remove("center_margin");
+        createMap();
+        showTeleportMap = false;
         }
       )
     }
   }
 }
 
-const showTeleportationMap = function() {
-  let map = document.querySelector(".game_map");
-  map.classList.add("tp_map");
-  map.innerHTML = ""
-  //map.innerHTML = `<img src="img/teleport_map.png" class="teleport_map"</img>`;
-  for (let i=0;i<32;i++) {
-    let mapChunks =""
-    for (let j=0;j<32;j++) {
-    let mapChunk= `<div class="tile mapchunk_${i*32+j} mapchunk"><wbr></div>`;
-    mapChunks += mapChunk;
+const toggleTeleportationMap = function() {
+  if (!showTeleportMap) {
+    showTeleportMap = true; // so next time will disable
+    let map = document.querySelector(".game_map");
+    map.classList.add("tp_map");
+    map.innerHTML = "";
+    for (let i=0;i<32;i++) {
+      let mapChunks =""
+      for (let j=0;j<32;j++) {
+      let mapChunk= `<div class="tile mapchunk_${i*32+j} mapchunk"><wbr></div>`;
+      mapChunks += mapChunk;
+      }
+      map.innerHTML += `<div class="map_row">${mapChunks}</div>`;
     }
-    map.innerHTML += `<div class="map_row">${mapChunks}</div>`;
+    listenTeleportMap();
+    disableDirections();
+    
+    EncounterSection.innerHTML = "Teleporting";
+    EncounterSection.classList.add("center_margin");
+    EncounterList.innerHTML = "Select a map to teleport to.";
+    return 
   }
-  listenTeleportMap()
+  showTeleportMap = false; // so next time will enable
+  createMap();
+  EncounterSection.innerHTML = "Encounter Data";
 }
 
 
@@ -864,7 +887,8 @@ const showEncounter = function(method) {
 
 const showEncounters = function(pokemon_encounters) {
   if (!ifAnyEncounterTilePresent()) {
-    EncounterList.innerHTML = "No encounters are present in this map."
+    EncounterSection.classList.add("center_margin");
+    EncounterList.innerHTML = "No encounters are present in this map.";
     return;
   }
   EncounterList.innerHTML = ``;
@@ -889,7 +913,9 @@ const showEncounters = function(pokemon_encounters) {
     };
   };
   EncounterList.innerHTML += EncounterTable;
+  EncounterSection.classList.remove("center_margin");
   if (EncounterTable == EncounterTableInit) {
+    EncounterSection.classList.add("center_margin");
     EncounterList.innerHTML = `<div style="text-align:center">There are encounters here! <br>
                                Click on a grass or water tile to show them.</div>`
   }
@@ -914,12 +940,12 @@ const updateEncounters = async function() {
           return;
         };
     };
-    //console.log(`Missing encounter data from API for ${area}`);
-    EncounterList.innerHTML = "No encounters are present in this map."
+    //console.log(`Missing Encounter Data from API for ${area}`);
+    EncounterSection.classList.add("center_margin");
+    EncounterList.innerHTML = "No encounters are present in this map.";
   } catch (ex) {
     console.log(ex);
   };
-  
 };
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -931,8 +957,10 @@ document.addEventListener("DOMContentLoaded", function () {
       .then(function(data){
         map_layout = data["map_layout"]
         createMap();
-      }); 
+      });
+
   EncounterList = document.querySelector(".encounter_list");
+  EncounterSection = document.querySelector(".encounter_header")
   updateEncounters();
   listenDirections();
   listenTeleport();
