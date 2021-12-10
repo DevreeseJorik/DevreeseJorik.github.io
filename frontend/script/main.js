@@ -525,6 +525,7 @@ let map_layout;
 let game_id = 0; // 0 = Diamond, 1 = Pearl, 2 = Platinum
 let selectedMap = 663;
 let teleport;
+let showTeleportMap = false;
 let area = areaAPInames[selectedMap];
 let EncounterTableInit = `<table class="encounter_table">
                           <thead><tr>
@@ -551,6 +552,13 @@ const disableInvalidDirections = function() {
   }
 }
 
+const disableDirections = function() {
+  let dirBtns = document.querySelectorAll(".direction");
+  for (let dirBtn of dirBtns) {
+    dirBtn.classList.add("arrow_disable"); // reset opacity
+  }
+}
+
 const isDirectionValid = function(direction) {
   let tempMap = selectedMap;
   if (direction == "up") { tempMap -= 30; }
@@ -562,7 +570,7 @@ const isDirectionValid = function(direction) {
 
 const move = function(direction) {
   let data = isDirectionValid(direction);
-  if (data[0]) {
+  if (data[0] && !showTeleportMap) {
     selectedMap = data[1];
     console.log(selectedMap); //debug print the maps 
     console.log(areaAPInames[selectedMap]);
@@ -617,7 +625,7 @@ const listenTiles = function() {
 const listenTeleport = function() {
   teleport = document.querySelector(".teleport_function");
   teleport.addEventListener('click',function(){
-    showTeleportationMap();
+    toggleTeleportationMap();
   });
 }
 
@@ -828,27 +836,34 @@ const listenTeleportMap = function() {
       mapchunk.addEventListener('click',function() {
         console.log(tpAreas[mapchunk.classList[1]])
         selectedMap = tpAreas[mapchunk.classList[1]];
-        createMap()
+        createMap();
+        showTeleportMap = false;
         }
       )
     }
   }
 }
 
-const showTeleportationMap = function() {
-  let map = document.querySelector(".game_map");
-  map.classList.add("tp_map");
-  map.innerHTML = ""
-  //map.innerHTML = `<img src="img/teleport_map.png" class="teleport_map"</img>`;
-  for (let i=0;i<32;i++) {
-    let mapChunks =""
-    for (let j=0;j<32;j++) {
-    let mapChunk= `<div class="tile mapchunk_${i*32+j} mapchunk"><wbr></div>`;
-    mapChunks += mapChunk;
+const toggleTeleportationMap = function() {
+  if (!showTeleportMap) {
+    showTeleportMap = true; // so next time will disable
+    let map = document.querySelector(".game_map");
+    map.classList.add("tp_map");
+    map.innerHTML = "";
+    for (let i=0;i<32;i++) {
+      let mapChunks =""
+      for (let j=0;j<32;j++) {
+      let mapChunk= `<div class="tile mapchunk_${i*32+j} mapchunk"><wbr></div>`;
+      mapChunks += mapChunk;
+      }
+      map.innerHTML += `<div class="map_row">${mapChunks}</div>`;
     }
-    map.innerHTML += `<div class="map_row">${mapChunks}</div>`;
+    listenTeleportMap();
+    disableDirections();
+    return 
   }
-  listenTeleportMap()
+  showTeleportMap = false; // so next time will enable
+  createMap();
 }
 
 

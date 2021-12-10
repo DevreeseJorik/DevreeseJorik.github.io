@@ -156,6 +156,37 @@ h2 {
   opacity:100%;
 }
 
+@keyframes tp-anim {
+  0% {
+    opacity:60%;
+  }
+  50% {
+    opacity:90%;
+  }
+
+  100% {
+    opacity:60%;
+  }
+}
+
+@-webkit-keyframes tp-anim {
+  0% {
+    opacity:60%;
+  }
+  50% {
+    opacity:90%;
+  }
+
+  100% {
+    opacity:60%;
+  }
+}
+
+.teleport_function:not(.teleport_function:hover) {
+  animation: tp-anim 1.8s linear infinite;
+  -webkit-animation: tp-anim 1.8s linear infinite;
+}
+
 /*
   Component: header/intro
   ---
@@ -291,39 +322,36 @@ h2 {
   
 }
 
-@keyframes fade-in-animation {
+@keyframes button-anim {
   0% {
-    filter:saturate(120%);
+    filter:saturate(130%);
   }
   50% {
-    filter:saturate(200%);
-    opacity:80%;
+    filter:saturate(200%) brightness(115%);
   }
 
   100% {
-    filter:saturate(120%);
+    filter:saturate(130%);
   }
 }
 
-@-webkit-keyframes fade-in-animation {
+@-webkit-keyframes button-anim {
   0% {
-    filter:saturate(120%);
+    filter:saturate(130%);
   }
   50% {
-    filter:saturate(200%);
-    opacity:80%;
+    filter:saturate(200%) brightness(115%);
   }
 
   100% {
-    filter:saturate(120%);
+    filter:saturate(130%);
   }
 }
 
-.teleport_function,.dir_anim {
-  animation: fade-in-animation 1.8s linear infinite;
-  -webkit-animation: fade-in-animation 1.8s linear infinite;
+.dir_anim {
+  animation: button-anim 1.8s linear infinite;
+  -webkit-animation: button-anim 1.8s linear infinite;
 }
-
 
 @media (pointer: fine) {
   .direction:not(.arrow_disable).direction:hover {
@@ -334,14 +362,25 @@ h2 {
   }
 }
 
-
 .arrow_disable {
   opacity:16%;
+  -webkit-filter: saturate(0%) brightness(100%);
+  filter: saturate(0%) brightness(100%);
+
 }
 
 .opac50{
   opacity: 50%;
 }
+
+/*
+  Component: encounters
+  ---
+  Customise encounters
+*/
+
+
+
 
 .encounter_header {
   margin-top:10px;
