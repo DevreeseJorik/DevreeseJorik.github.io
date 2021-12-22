@@ -487,7 +487,7 @@ const pokemonNames =  ["0x0", "bulbasaur", "ivysaur", "venusaur", "charmander", 
 			"burmy", "wormadam", "mothim", "combee", "vespiquen", "pachirisu", "buizel", "floatzel", "cherubi",
 			"cherrim", "shellos", "gastrodon", "ambipom", "drifloon", "drifblim", "buneary", "lopunny",
 			"mismagius", "honchkrow", "glameow", "purugly", "chingling", "stunky", "skuntank", "bronzor",
-			"bronzong", "bonsly", "mime-jr.", "happiny", "chatot", "spiritomb", "gible", "gabite", "garchomp",
+			"bronzong", "bonsly", "mime-jr", "happiny", "chatot", "spiritomb", "gible", "gabite", "garchomp",
 			"munchlax", "riolu", "lucario", "hippopotas", "hippowdon", "skorupi", "drapion", "croagunk",
 			"toxicroak", "carnivine", "finneon", "lumineon", "mantyke", "snover", "abomasnow", "weavile",
 			"magnezone", "lickilicky", "rhyperior", "tangrowth", "electivire", "magmortar", "togekiss",
@@ -712,8 +712,8 @@ const createMap = function () {
 };
 
 const tpAreas = {
-  "mapchunk_900":663, // twinleaf
-  "mapchunk_901":663,
+  "mapchunk_899":663, // twinleaf
+  "mapchunk_900":663,
 
   "mapchunk_870":635, // sandgem
   "mapchunk_871":635,
@@ -725,8 +725,12 @@ const tpAreas = {
   "mapchunk_773":575,
   "mapchunk_774":575,
 
+  
+  "mapchunk_673":511, //canalave
   "mapchunk_674":511, //canalave
+  "mapchunk_705":511,
   "mapchunk_706":511,
+  "mapchunk_737":511,
   "mapchunk_738":511,
 
   "mapchunk_582":455, // floaroma
@@ -746,17 +750,18 @@ const tpAreas = {
   "mapchunk_746":549,
   "mapchunk_778":549,
 
-  "mapchunk_687":494, //hearthome
+  "mapchunk_655":494, //hearthome
+  "mapchunk_656":494,
+  "mapchunk_657":494,
+  "mapchunk_687":494,
   "mapchunk_688":494,
   "mapchunk_689":494,
   "mapchunk_720":494,
   "mapchunk_719":494,
   "mapchunk_721":494,
 
-  "mapchunk_464":344, // celestic
-  "mapchunk_465":344,
-  "mapchunk_496":344,
-  "mapchunk_497":344,
+  "mapchunk_463":344,// celestic
+  "mapchunk_495":344,
   
   "mapchunk_567":442, // veilstone
   "mapchunk_568":442,
@@ -777,20 +782,20 @@ const tpAreas = {
   "mapchunk_884":618,
   "mapchunk_885":618,
 
-  "mapchunk_764":596, // sunyshore
+  "mapchunk_763":596, // sunyshore
+  "mapchunk_764":596,
   "mapchunk_765":596,
-  "mapchunk_766":596,
+  "mapchunk_795":596,
   "mapchunk_796":596,
   "mapchunk_797":596,
-  "mapchunk_798":596,
+  "mapchunk_827":596,
   "mapchunk_828":596,
   "mapchunk_829":596,
-  "mapchunk_830":596,
 
-  "mapchunk_508":386, // pokeleague
-  "mapchunk_509":386,
+  "mapchunk_507":386, // pokeleague
+  "mapchunk_508":386,
+  "mapchunk_539":386,
   "mapchunk_540":386,
-  "mapchunk_541":386,
 
   "mapchunk_76":41, // snowpoint 
   "mapchunk_77":41,
@@ -806,26 +811,28 @@ const tpAreas = {
   "mapchunk_373":260,
   "mapchunk_374":260,
 
-  "mapchunk_246":170, // survival area
+  "mapchunk_245":170, // survival area
   "mapchunk_246":170,
 
-  "mapchunk_130":91, // fullmoon island
-  "mapchunk_131":91,
-  "mapchunk_162":91, 
-  "mapchunk_163":91,
+  "mapchunk_129":91, // fullmoon island
+  "mapchunk_130":91,
+  "mapchunk_161":91, 
+  "mapchunk_162":91,
 
-  "mapchunk_133":94, // newmoon island
-  "mapchunk_134":94,
+  "mapchunk_132":94, // newmoon island
+  "mapchunk_133":94,
+  "mapchunk_164":94,
   "mapchunk_165":94,
-  "mapchunk_166":94,
 
-  "mapchunk_420":303, // iron island 
-  "mapchunk_421":303,
+  "mapchunk_419":303, // iron island 
+  "mapchunk_420":303,
+  "mapchunk_451":303,
   "mapchunk_452":303,
-  "mapchunk_453":303,
 
-  "mapchunk_190":58, // flower paradise
-  "mapchunk_191":58,
+  "mapchunk_157":58, // flower paradise
+  "mapchunk_158":58,
+  "mapchunk_189":58,
+  "mapchunk_190":58,
 }
 
 const listenTeleportMap = function() {
